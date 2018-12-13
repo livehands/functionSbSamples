@@ -3,6 +3,7 @@ using Microsoft.Azure.WebJobs.Host;
 using Microsoft.ServiceBus.Messaging;
 using System.Data.SqlClient;
 using Newtonsoft.Json;
+using System;
 
 namespace BusToSqlSample
 {
@@ -19,7 +20,7 @@ namespace BusToSqlSample
             log.Info($"Message: {e.Id}, {e.FirstName}, {e.LastName}");
 
             ///Write to SQL
-            var cnnString = "";
+            var cnnString = Environment.GetEnvironmentVariable("sqlConnection");
 
             using (SqlConnection conn = new SqlConnection(cnnString))
             {
